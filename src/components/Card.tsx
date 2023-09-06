@@ -1,5 +1,34 @@
-import { Pokemon } from '../types/pokemon';
+import { PokemonData } from '../types/PokemonData';
 import styled from 'styled-components';
+
+type OwnProps = {
+  pokemon: PokemonData;
+};
+
+function Card({ pokemon }: OwnProps) {
+  const fullId = `#${'0'.repeat(4 - pokemon.id.toString().length)}${
+    pokemon.id
+  }`;
+
+  return (
+    <Container>
+      <ImageFrame>
+        <img src={pokemon.imgUrl} alt='' />
+      </ImageFrame>
+      <Content>
+        <div className='id'>{fullId}</div>
+        <div className='name'>{pokemon.name}</div>
+        <div className='types'>
+          {pokemon.types.map((v) => (
+            <Oval key={v}>{v}</Oval>
+          ))}
+        </div>
+      </Content>
+    </Container>
+  );
+}
+
+export default Card;
 
 const Container = styled.div`
   display: flex;
@@ -53,32 +82,3 @@ const Oval = styled.div`
   border-radius: 12px;
   padding: 0.5% 2%;
 `;
-
-type OwnProps = {
-  pokemon: Pokemon;
-};
-
-function Card({ pokemon }: OwnProps) {
-  const fullId = `#${'0'.repeat(4 - pokemon.id.toString().length)}${
-    pokemon.id
-  }`;
-
-  return (
-    <Container>
-      <ImageFrame>
-        <img src={pokemon.imgUrl} alt='' />
-      </ImageFrame>
-      <Content>
-        <div className='id'>{fullId}</div>
-        <div className='name'>{pokemon.name}</div>
-        <div className='types'>
-          {pokemon.types.map((v) => (
-            <Oval key={v}>{v}</Oval>
-          ))}
-        </div>
-      </Content>
-    </Container>
-  );
-}
-
-export default Card;
